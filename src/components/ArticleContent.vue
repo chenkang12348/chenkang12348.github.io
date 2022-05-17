@@ -30,20 +30,20 @@ export default defineComponent({
         url: '/views/article/index.html',
       },
       {
-        name: 'Vuejs',
-        url: '/views/article/Vuejs/index.html',
-      },
-      {
         name: 'Javascript',
         url: '/views/article/Javascript/index.html',
       },
       {
-        name: 'Nodejs',
-        url: '/views/article/Nodejs/index.html',
+        name: 'Vue',
+        url: '/views/article/Vue/index.html',
       },
       {
-        name: 'Tool',
-        url: '/views/article/Tool/index.html',
+        name: 'React',
+        url: '/views/article/React/index.html',
+      },
+      {
+        name: 'Nodejs',
+        url: '/views/article/Nodejs/index.html',
       },
       {
         name: 'InformalEssay',
