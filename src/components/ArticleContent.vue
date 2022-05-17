@@ -25,10 +25,10 @@ export default defineComponent({
   setup() {
     const { frontmatter } = useData();
     const tags = [
-      {
-        name: 'All',
-        url: '/views/article/index.html',
-      },
+      // {
+      //   name: 'All',
+      //   url: '/views/article/index.html',
+      // },
       {
         name: 'Javascript',
         url: '/views/article/Javascript/index.html',

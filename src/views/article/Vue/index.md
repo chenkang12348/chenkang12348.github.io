@@ -1,8 +1,8 @@
 ---
-title: 'Vuejs'
+title: 'Vue'
 active: 'blog'
 catalogue: true
-tag: 'Vuejs'
+tag: 'Vue'
 ---
 待更新
 
