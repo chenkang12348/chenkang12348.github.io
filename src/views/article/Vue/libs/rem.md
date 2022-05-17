@@ -1,7 +1,7 @@
 ---
 title: Vue中使用rem移动端适配方案
 theme: default
-tag: Vuejs
+tag: Vue
 time: 2020.9.29
 ---
 

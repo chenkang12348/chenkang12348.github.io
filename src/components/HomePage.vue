@@ -2,7 +2,7 @@
   <div class="home-page">
     <HomeNav />
     <div class="home-content">
-      <img class="home-cover" src="/images/cover3.jpg" />
+      <img class="home-cover" src="/images/cover.jpg" />
       <div class="content-left">
         <div class="left-title">F小站</div>
         <div class="left-descript">
