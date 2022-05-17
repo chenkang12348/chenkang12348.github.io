@@ -13,7 +13,7 @@
     <Content />
     <div v-if="!catalogue" class="copy-right">
       本文首发于
-      <a href="https://alqmc.github.io/">@阿乐去买菜</a>，转载请署名出处
+      <a href="https://chenkang12348.github.io/">@F小站</a>，转载请署名出处
     </div>
   </div>
 </template>

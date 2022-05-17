@@ -3,11 +3,13 @@ title: '项目'
 active: 'project'
 ---
 
-### [MORE PROJECT](https://github.com/alqmc?tab=repositories)
+<!-- ### [MORE PROJECT](https://github.com/alqmc?tab=repositories) -->
 
 <div class='project-item'>
+  待更新
 
-[1、vue-simple-json](https://github.com/alqmc/command-tips)
+  
+<!-- [1、vue-simple-json](https://github.com/alqmc/command-tips)
 
 <a href="https://www.npmjs.org/package/vue-simple-json">
 <img src="https://img.shields.io/npm/v/vue-simple-json.svg">
@@ -17,14 +19,14 @@ active: 'project'
 </a>
 <a href="https://npmcharts.com/compare/vue-simple-json?minimal=true">
 <img src="https://img.shields.io/npm/l/vue-simple-json.svg?color=blue">
-</a>
+</a> -->
 </div>
 
-极简的 jsonEditor 插件
+<!-- 极简的 jsonEditor 插件 -->
 
 <div class='project-item'>
 
-[2、gacm](https://github.com/alqmc/gacm)
+<!-- [2、gacm](https://github.com/alqmc/gacm)
 
 <a href="https://www.npmjs.org/package/gacm">
 <img src="https://img.shields.io/npm/v/gacm.svg">
@@ -34,14 +36,14 @@ active: 'project'
 </a>
 <a href="https://npmcharts.com/compare/gacm?minimal=true">
 <img src="https://img.shields.io/npm/l/gacm.svg?color=blue">
-</a>
+</a> -->
 </div>
 
-Git Account Management Tools
+<!-- Git Account Management Tools -->
 
 <div class='project-item'>
 
-[3、command-tips](https://github.com/alqmc/command-tips)
+<!-- [3、command-tips](https://github.com/alqmc/command-tips)
 
 <a href="https://www.npmjs.org/package/command-tips ">
 <img src="https://img.shields.io/npm/v/command-tips.svg">
@@ -51,13 +53,13 @@ Git Account Management Tools
 </a>
 <a href="https://npmcharts.com/compare/command-tips?minimal=true">
 <img src="https://img.shields.io/npm/l/command-tips.svg?color=blue">
-</a>
+</a> -->
 </div>
-命令行提示工具
+<!-- 命令行提示工具 -->
 
 <div class='project-item'>
 
-[4、@alqmc/eslint-config](https://github.com/alqmc/@alqmc/eslint-config)
+<!-- [4、@alqmc/eslint-config](https://github.com/alqmc/@alqmc/eslint-config)
 
 <a href="https://www.npmjs.org/package/@alqmc/eslint-config ">
 <img src="https://img.shields.io/npm/v/@alqmc/eslint-config.svg">
@@ -67,14 +69,14 @@ Git Account Management Tools
 </a>
 <a href="https://npmcharts.com/compare/@alqmc/eslint-config?minimal=true">
 <img src="https://img.shields.io/npm/l/@alqmc/eslint-config.svg?color=blue">
-</a>
+</a> -->
 </div>
 
-eslint-config 配置
+<!-- eslint-config 配置 -->
 
 <div class='project-item'>
 
-[5、@alqmc/build-ts](https://github.com/alqmc/@alqmc/build-ts)
+<!-- [5、@alqmc/build-ts](https://github.com/alqmc/@alqmc/build-ts)
 
 <a href="https://www.npmjs.org/package/@alqmc/build-ts ">
 <img src="https://img.shields.io/npm/v/@alqmc/build-ts.svg">
@@ -84,14 +86,14 @@ eslint-config 配置
 </a>
 <a href="https://npmcharts.com/compare/@alqmc/build-ts?minimal=true">
 <img src="https://img.shields.io/npm/l/@alqmc/build-ts.svg?color=blue">
-</a>
+</a> -->
 </div>
 
-ts 类库打包工具
+<!-- ts 类库打包工具 -->
 
 <div class='project-item'>
 
-[6、@alqmc/build-vue](https://github.com/alqmc/@alqmc/@alqmc/build-vue)
+<!-- [6、@alqmc/build-vue](https://github.com/alqmc/@alqmc/@alqmc/build-vue)
 
 <a href="https://www.npmjs.org/package/@alqmc/build-vue ">
 <img src="https://img.shields.io/npm/v/@alqmc/build-vue.svg">
@@ -101,14 +103,14 @@ ts 类库打包工具
 </a>
 <a href="https://npmcharts.com/compare/@alqmc/build-vue?minimal=true">
 <img src="https://img.shields.io/npm/l/@alqmc/build-vue.svg?color=blue">
-</a>
+</a> -->
 </div>
 
-vue 类库打包工具
+<!-- vue 类库打包工具 -->
 
 <div class='project-item'>
 
-[7、@alqmc/build-utils](https://github.com/alqmc/@alqmc/@alqmc/build-utils)
+<!-- [7、@alqmc/build-utils](https://github.com/alqmc/@alqmc/@alqmc/build-utils)
 
 <a href="https://www.npmjs.org/package/@alqmc/build-utils ">
 <img src="https://img.shields.io/npm/v/@alqmc/build-utils.svg">
@@ -118,24 +120,24 @@ vue 类库打包工具
 </a>
 <a href="https://npmcharts.com/compare/@alqmc/build-utils?minimal=true">
 <img src="https://img.shields.io/npm/l/@alqmc/build-utils.svg?color=blue">
-</a>
+</a> -->
 </div>
 
-打包工具函数库
+<!-- 打包工具函数库 -->
 
 <div class='project-item'>
 
-[8、simmind](https://github.com/alqmc/simmind)
+<!-- [8、simmind](https://github.com/alqmc/simmind)
 
 <a href="https://www.npmjs.org/package/simmind ">
 <img src="https://img.shields.io/npm/v/simmind.svg">
 </a>
 <a href="https://npmcharts.com/compare/simmind?minimal=true">
 <img src="https://img.shields.io/npm/dm/simmind.svg?color=357C3C">
-</a>
+</a> -->
 <!-- <a href="https://npmcharts.com/compare/simmind?minimal=true">
 <img src="https://img.shields.io/npm/l/simmind.svg?color=blue">
 </a> -->
 </div>
 
-vue 思维导图，基于 kityminder-core
+<!-- vue 思维导图，基于 kityminder-core -->
