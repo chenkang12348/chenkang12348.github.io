@@ -1,0 +1,9 @@
+{
+  "article-template": {
+    "scope": "markdown",
+    "prefix": "article-template",
+    "body": ["---\ntitle: ${1}\ntheme: default\ntag: ${2}\ntime: ${3}\n---\n"],
+    "description": "article-template"
+  }
+}
+

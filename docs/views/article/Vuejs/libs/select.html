@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>鼠标拖拽建立选区，选中元素 | F小站</title>
+    <meta name="description" content="笔记！">
+    <link rel="stylesheet" href="/assets/style.7f899e63.css">
+    <link rel="modulepreload" href="/assets/app.d57216e0.js">
+    <link rel="modulepreload" href="/assets/views_article_Vuejs_libs_select.md.45392622.lean.js">
+    
+    <link rel="shortcut icon" href="/images/favicon.png">
+  <meta name="twitter:title" content="鼠标拖拽建立选区，选中元素 | F小站">
+  <meta property="og:title" content="鼠标拖拽建立选区，选中元素 | F小站">
+  </head>
+  <body>
+    <div id="app"><div class="docs-content" data-v-27c29204><div class="home-nav" style="background-color:#fff;3ac050d7:#333;6d2f678d:#7dd1d3;" data-v-27c29204 data-v-e45eb2e0><div class="home-operate" data-v-e45eb2e0><!--[--><a class="operate-item" href="/" data-v-e45eb2e0>Home</a><a class="operate-item" href="/views/article/index.html" data-v-e45eb2e0>Blog</a><a class="operate-item" href="/views/project/index.html" data-v-e45eb2e0>Project</a><a class="operate-item" href="/views/about.html" data-v-e45eb2e0>About</a><!--]--><a class="operate-btn" href="https://github.com/alqmc" target="_blank" data-v-e45eb2e0><i class="svg-icon" style="font-size:26px;" data-v-e45eb2e0><!--[--><svg class="icon" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" data-v-e45eb2e0><path fill="currentColor" d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9 23.5 23.2 38.1 55.4 38.1 91v112.5c0.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z"></path></svg><!--]--></i></a></div></div><div class="docs-bodyer" data-v-27c29204><div class="article-content" data-v-27c29204 data-v-6f2c7da3><div class="article-nav-tag" data-v-6f2c7da3><!--[--><a href="/views/article/index.html" class="tag-item" data-v-6f2c7da3>All</a><a href="/views/article/Vuejs/index.html" class="tag-item tag-active" data-v-6f2c7da3>Vuejs</a><a href="/views/article/Javascript/index.html" class="tag-item" data-v-6f2c7da3>Javascript</a><a href="/views/article/Nodejs/index.html" class="tag-item" data-v-6f2c7da3>Nodejs</a><a href="/views/article/Tool/index.html" class="tag-item" data-v-6f2c7da3>Tool</a><a href="/views/article/InformalEssay/index.html" class="tag-item" data-v-6f2c7da3>InformalEssay</a><!--]--></div><div style="position:relative;" data-v-6f2c7da3><div><p>近段时间做一个编辑器，就需要一个鼠标拖拽选区的功能，方便批量选中元素，进行相应操作，所有就有了这篇文章。</p><h3 id="效果展示" tabindex="-1">效果展示 <a class="header-anchor" href="#效果展示" aria-hidden="true">#</a></h3><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/24bade2b81104b6e8b2e874445214281~tplv-k3u1fbpfcp-watermark.image" alt=""><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/af27fb546f2941ea8ebe7e12f656818b~tplv-k3u1fbpfcp-watermark.image" alt=""></p><h3 id="建立选区组件" tabindex="-1">建立选区组件 <a class="header-anchor" href="#建立选区组件" aria-hidden="true">#</a></h3><p>1、要想选中元素，肯定要先建立选区</p><ul><li>根据两个坐标点确定选区位置，并绘制出选区</li><li>根据两个坐标删除选区的宽与高</li></ul><div class="language-js"><pre><code><span class="token keyword">const</span> size <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> width <span class="token operator">=</span>
+    props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x <span class="token operator">===</span> <span class="token number">0</span>
+      <span class="token operator">?</span> <span class="token number">0</span>
+      <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x <span class="token operator">-</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> height <span class="token operator">=</span>
+    props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y <span class="token operator">===</span> <span class="token number">0</span>
+      <span class="token operator">?</span> <span class="token number">0</span>
+      <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y <span class="token operator">-</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    width<span class="token punctuation">,</span>
+    height<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>确定起始坐标点 <ul><li>不管从何处点击都需要找到两个坐标点所绘制的矩形的左上角的坐标点。</li><li>左上角的坐标点，很明显是所有坐标的最小值，也就是 X,Y 取最小的值的点（如下）</li><li>还需要考虑终点还没有产生时的情况，也就是排除终点为初始值也就是 0 的情况</li></ul></li></ul><div class="language-js"><pre><code><span class="token keyword">const</span> Point <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> x <span class="token operator">=</span>
+    props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x <span class="token operator">===</span> <span class="token number">0</span>
+      <span class="token operator">?</span> props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x
+      <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x<span class="token punctuation">,</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> y <span class="token operator">=</span>
+    props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y <span class="token operator">===</span> <span class="token number">0</span>
+      <span class="token operator">?</span> props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y
+      <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y<span class="token punctuation">,</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    x<span class="token punctuation">,</span>
+    y<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>这样就可绘制出一个选区</li></ul><p><img src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/23bbd40e8ac84f689ca434e0df18fac9~tplv-k3u1fbpfcp-watermark.image" alt=""></p><p>2、根据选区，筛选出选中的元素</p><ul><li>筛选选区的元素主要是根据 nodeType 选中出编辑区所有可选择的元素节点。</li><li>怎么才算可选元素，这就得看自己需要，我在元素节点上标注了 canChecked，通过这个属性排除非可选元素</li></ul><div class="language-js"><pre><code><span class="token comment">/*
+ * 获取该元素下可以被选中的元素集合
+ * @param parentElement 父元素
+ * @param keyCode 可选元素标识
+ * @returns
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getChildrens</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">parentElement</span><span class="token operator">:</span> HTMLElement<span class="token punctuation">,</span> <span class="token literal-property property">keyCode</span><span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> ary <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> childs <span class="token operator">=</span> parentElement<span class="token punctuation">.</span>childNodes<span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> childs<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>nodeType <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">as</span> HTMLElement<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span>keyCode<span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ary<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> ary <span class="token keyword">as</span> Array<span class="token operator">&lt;</span>HTMLElement<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>3、判断节点是否在选区内</p><ul><li>这个主要根据 getBoundingClientRect 方法返回的信息</li></ul><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/62e7e3fc2e13479f980cebf410316f9e~tplv-k3u1fbpfcp-watermark.image" alt=""></p><ul><li>当选区的 top 与 left 小于判断元素，bottom 与大于判断元素，即认为该元素在选区内。</li></ul><div class="language-js"><pre><code><span class="token comment">/**
+ * 判断元素是否在选区内
+ * @param selectBoxElement 选区元素
+ * @param canCheckedElements  可选中元素列表
+ */</span>
+<span class="token keyword">function</span> <span class="token function">judgeContainElement</span><span class="token punctuation">(</span>
+  <span class="token parameter"><span class="token literal-property property">selectBoxElement</span><span class="token operator">:</span> HTMLElement<span class="token punctuation">,</span>
+  <span class="token literal-property property">canCheckedElements</span><span class="token operator">:</span> Array<span class="token operator">&lt;</span>HTMLElement<span class="token operator">&gt;</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token literal-property property">ContainElement</span><span class="token operator">:</span> Array<span class="token operator">&lt;</span>HTMLElement<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> left<span class="token punctuation">,</span> right<span class="token punctuation">,</span> bottom<span class="token punctuation">,</span> top <span class="token punctuation">}</span> <span class="token operator">=</span> selectBoxElement<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  canCheckedElements<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> child <span class="token operator">=</span> item<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      child<span class="token punctuation">.</span>left <span class="token operator">&gt;</span> left <span class="token operator">&amp;&amp;</span>
+      child<span class="token punctuation">.</span>top <span class="token operator">&gt;</span> top <span class="token operator">&amp;&amp;</span>
+      child<span class="token punctuation">.</span>bottom <span class="token operator">&lt;</span> bottom <span class="token operator">&amp;&amp;</span>
+      child<span class="token punctuation">.</span>right <span class="token operator">&lt;</span> right
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ContainElement<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ContainElement<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>4、至此我们已经可以获得到选区内选中元素了，然后就可对选中元素做需要的操作了，也就是如效果图所示/</p><h3 id="完整代码附上" tabindex="-1">完整代码附上 <a class="header-anchor" href="#完整代码附上" aria-hidden="true">#</a></h3><p>1、组件基础结构文件</p><div class="language-vue"><pre><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span>
+    <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>select-area<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>select-area<span class="token punctuation">&quot;</span></span>
+    <span class="token attr-name">:style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>[
+      { width: size.width + <span class="token punctuation">&#39;</span>px<span class="token punctuation">&#39;</span> },
+      { height: size.height + <span class="token punctuation">&#39;</span>px<span class="token punctuation">&#39;</span> },
+      { top: Point.y + <span class="token punctuation">&#39;</span>px<span class="token punctuation">&#39;</span> },
+      { left: Point.x + <span class="token punctuation">&#39;</span>px<span class="token punctuation">&#39;</span> },
+    ]<span class="token punctuation">&quot;</span></span>
+  <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ts<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> computed<span class="token punctuation">,</span> defineComponent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> type <span class="token punctuation">{</span> PropType <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span><span class="token punctuation">;</span>
+<span class="token keyword">interface</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+  <span class="token literal-property property">x</span><span class="token operator">:</span> number<span class="token punctuation">;</span>
+  <span class="token literal-property property">y</span><span class="token operator">:</span> number<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token function">defineComponent</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">&#39;SelectArea&#39;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">props</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token literal-property property">startPoint</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">type</span><span class="token operator">:</span> Object <span class="token keyword">as</span> PropType<span class="token operator">&lt;</span>Point<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">required</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token literal-property property">endPoint</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token literal-property property">type</span><span class="token operator">:</span> Object <span class="token keyword">as</span> PropType<span class="token operator">&lt;</span>Point<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">required</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> Point <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> x <span class="token operator">=</span>
+        props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x <span class="token operator">===</span> <span class="token number">0</span>
+          <span class="token operator">?</span> props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x
+          <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x<span class="token punctuation">,</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> y <span class="token operator">=</span>
+        props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y <span class="token operator">===</span> <span class="token number">0</span>
+          <span class="token operator">?</span> props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y
+          <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y<span class="token punctuation">,</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        x<span class="token punctuation">,</span>
+        y<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> size <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> width <span class="token operator">=</span>
+        props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x <span class="token operator">===</span> <span class="token number">0</span>
+          <span class="token operator">?</span> <span class="token number">0</span>
+          <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x <span class="token operator">-</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> height <span class="token operator">=</span>
+        props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y <span class="token operator">===</span> <span class="token number">0</span>
+          <span class="token operator">?</span> <span class="token number">0</span>
+          <span class="token operator">:</span> Math<span class="token punctuation">.</span><span class="token function">abs</span><span class="token punctuation">(</span>props<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y <span class="token operator">-</span> props<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        width<span class="token punctuation">,</span>
+        height<span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      Point<span class="token punctuation">,</span>
+      size<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>less<span class="token punctuation">&quot;</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
+<span class="token selector">.select-area</span> <span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> fixed<span class="token punctuation">;</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> <span class="token function">rgba</span><span class="token punctuation">(</span>255<span class="token punctuation">,</span> 192<span class="token punctuation">,</span> 203<span class="token punctuation">,</span> 0.1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> 1px solid red<span class="token punctuation">;</span>
+  <span class="token property">z-index</span><span class="token punctuation">:</span> 9<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+</code></pre></div><p>2、导出组件文件</p><div class="language-js"><pre><code><span class="token keyword">import</span> <span class="token punctuation">{</span> createVNode<span class="token punctuation">,</span> render <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&#39;vue&#39;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> SelectAreaConstructor <span class="token keyword">from</span> <span class="token string">&#39;./SelectArea.vue&#39;</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> <span class="token literal-property property">instence</span><span class="token operator">:</span> HTMLElement <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> instenceIsExit <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> <span class="token function-variable function">SelectArea</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">options</span><span class="token operator">:</span> any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>instenceIsExit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>instence <span class="token keyword">as</span> HTMLElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    instenceIsExit <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">const</span> vm <span class="token operator">=</span> <span class="token function">createVNode</span><span class="token punctuation">(</span>SelectAreaConstructor<span class="token punctuation">,</span> options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> container <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">&#39;div&#39;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">render</span><span class="token punctuation">(</span>vm<span class="token punctuation">,</span> container<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  instence <span class="token operator">=</span> container<span class="token punctuation">.</span>firstElementChild <span class="token keyword">as</span> HTMLElement<span class="token punctuation">;</span>
+  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>instence<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  instenceIsExit <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> instence<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> <span class="token function-variable function">close</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>instenceIsExit<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// eslint-disable-next-line @typescript-eslint/no-unused-vars</span>
+    instenceIsExit <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>instence <span class="token keyword">as</span> HTMLElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    instence <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> SelectArea<span class="token punctuation">,</span> close <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre></div><p>3、应用文件 setup 部分</p><div class="language-js"><pre><code> <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> selectProps <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token literal-property property">startPoint</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token literal-property property">endPoint</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> mouseKey <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 是否监听鼠标移动（移出编辑区范围，不再监听鼠标移动事件）</span>
+    <span class="token keyword">let</span> mouseComplete <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 鼠标移动事件是否完成（鼠标按下到抬起的流程）</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">headleMouseDown</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">e</span><span class="token operator">:</span> MouseEvent</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      selectProps<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x <span class="token operator">=</span> e<span class="token punctuation">.</span>clientX<span class="token punctuation">;</span>
+      selectProps<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y <span class="token operator">=</span> e<span class="token punctuation">.</span>clientY<span class="token punctuation">;</span>
+      <span class="token function">SelectArea</span><span class="token punctuation">(</span>selectProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      mouseKey<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      mouseComplete<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">headleMouseMove</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">e</span><span class="token operator">:</span> MouseEvent</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>mouseKey<span class="token punctuation">.</span>value <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>mouseComplete<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        selectProps<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x <span class="token operator">=</span> e<span class="token punctuation">.</span>clientX<span class="token punctuation">;</span>
+        selectProps<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y <span class="token operator">=</span> e<span class="token punctuation">.</span>clientY<span class="token punctuation">;</span>
+        <span class="token keyword">const</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">&#39;#select-area&#39;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> parent <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">&#39;.edit-area&#39;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> containDiv <span class="token operator">=</span> <span class="token function">selectElement</span><span class="token punctuation">(</span>
+          parent <span class="token keyword">as</span> HTMLElement<span class="token punctuation">,</span>
+          div <span class="token keyword">as</span> HTMLElement<span class="token punctuation">,</span>
+          <span class="token string">&#39;canChecked&#39;</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        containDiv<span class="token punctuation">.</span>canCheckedElements<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          item<span class="token punctuation">.</span>style<span class="token punctuation">.</span>border <span class="token operator">=</span> <span class="token string">&#39;none&#39;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        containDiv<span class="token punctuation">.</span>containElements<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          item<span class="token punctuation">.</span>style<span class="token punctuation">.</span>border <span class="token operator">=</span> <span class="token string">&#39;1px solid red&#39;</span><span class="token punctuation">;</span>
+          item<span class="token punctuation">.</span>style<span class="token punctuation">.</span>cursor <span class="token operator">=</span> <span class="token string">&#39;move&#39;</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">headleDrag</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">e</span><span class="token operator">:</span> MouseEvent</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 防止与拖动事件冲突</span>
+      e<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">headleMouseUp</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      mouseKey<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+      mouseComplete<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      selectProps<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      selectProps<span class="token punctuation">.</span>startPoint<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      selectProps<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      selectProps<span class="token punctuation">.</span>endPoint<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&#39;mousedown&#39;</span><span class="token punctuation">,</span> headleMouseDown<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&#39;mousemove&#39;</span><span class="token punctuation">,</span> headleMouseMove<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">&#39;mouseup&#39;</span><span class="token punctuation">,</span> headleMouseUp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">onUnmounted</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      window<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">&#39;mousedown&#39;</span><span class="token punctuation">,</span> headleMouseDown<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      window<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">&#39;mousemove&#39;</span><span class="token punctuation">,</span> headleMouseMove<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      window<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">&#39;mouseup&#39;</span><span class="token punctuation">,</span> headleMouseUp<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">saveWeekly</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&#39;click&#39;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      headleMouseDown<span class="token punctuation">,</span>
+      headleMouseMove<span class="token punctuation">,</span>
+      headleMouseUp<span class="token punctuation">,</span>
+      headleDrag<span class="token punctuation">,</span>
+      saveWeekly<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre></div><p>4、辅助工具函数文件</p><div class="language-js"><pre><code><span class="token comment">/**
+ * 获取该元素下可以被选中的元素集合
+ * @param parentElement 父元素
+ * @param selectBoxElement 选择框元素
+ * @param keyCode 可选元素标识
+ * @returns
+ */</span>
+<span class="token keyword">function</span> <span class="token function">selectElement</span><span class="token punctuation">(</span>
+  <span class="token parameter"><span class="token literal-property property">parentElement</span><span class="token operator">:</span> HTMLElement<span class="token punctuation">,</span>
+  <span class="token literal-property property">selectBoxElement</span><span class="token operator">:</span> HTMLElement<span class="token punctuation">,</span>
+  <span class="token literal-property property">keyCode</span><span class="token operator">:</span> string</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> canCheckedElements <span class="token operator">=</span> <span class="token function">getChildrens</span><span class="token punctuation">(</span>parentElement<span class="token punctuation">,</span> keyCode<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> containElements <span class="token operator">=</span> <span class="token function">judgeContainElement</span><span class="token punctuation">(</span>
+    selectBoxElement<span class="token punctuation">,</span>
+    canCheckedElements
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    containElements<span class="token punctuation">,</span>
+    canCheckedElements<span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> selectElement <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">/**
+ *
+ * 获取该元素下可以被选中的元素集合
+ * @param parentElement 父元素
+ * @param keyCode 可选元素标识
+ * @returns
+ */</span>
+<span class="token keyword">function</span> <span class="token function">getChildrens</span><span class="token punctuation">(</span><span class="token parameter"><span class="token literal-property property">parentElement</span><span class="token operator">:</span> HTMLElement<span class="token punctuation">,</span> <span class="token literal-property property">keyCode</span><span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> ary <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> childs <span class="token operator">=</span> parentElement<span class="token punctuation">.</span>childNodes<span class="token punctuation">;</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> childs<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>nodeType <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token keyword">as</span> HTMLElement<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getAttribute</span><span class="token punctuation">(</span>keyCode<span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ary<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>childs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> ary <span class="token keyword">as</span> Array<span class="token operator">&lt;</span>HTMLElement<span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">judgeContainElement</span><span class="token punctuation">(</span>
+  <span class="token parameter"><span class="token literal-property property">selectBoxElement</span><span class="token operator">:</span> HTMLElement<span class="token punctuation">,</span>
+  <span class="token literal-property property">canCheckedElements</span><span class="token operator">:</span> Array<span class="token operator">&lt;</span>HTMLElement<span class="token operator">&gt;</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token literal-property property">ContainElement</span><span class="token operator">:</span> Array<span class="token operator">&lt;</span>HTMLElement<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> left<span class="token punctuation">,</span> right<span class="token punctuation">,</span> bottom<span class="token punctuation">,</span> top <span class="token punctuation">}</span> <span class="token operator">=</span> selectBoxElement<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  canCheckedElements<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">item</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> child <span class="token operator">=</span> item<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      child<span class="token punctuation">.</span>left <span class="token operator">&gt;</span> left <span class="token operator">&amp;&amp;</span>
+      child<span class="token punctuation">.</span>top <span class="token operator">&gt;</span> top <span class="token operator">&amp;&amp;</span>
+      child<span class="token punctuation">.</span>bottom <span class="token operator">&lt;</span> bottom <span class="token operator">&amp;&amp;</span>
+      child<span class="token punctuation">.</span>right <span class="token operator">&lt;</span> right
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ContainElement<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ContainElement<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div></div></div><div class="copy-right" data-v-6f2c7da3> 本文首发于 <a href="https://alqmc.github.io/" data-v-6f2c7da3>@阿乐去买菜</a>，转载请署名出处 </div></div></div></div></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"index.md\":\"4bedaa58\",\"views_about.md\":\"5d8cd65a\",\"views_article_informalessay_index.md\":\"d6698879\",\"views_article_informalessay_libs_2021.md\":\"d5e1ecc5\",\"views_article_informalessay_libs_notes.md\":\"2ba225b0\",\"views_article_informalessay_libs_px.md\":\"a2dbb266\",\"views_article_informalessay_libs_qq.md\":\"8b3d660d\",\"views_article_javascript_index.md\":\"c323e4a1\",\"views_article_javascript_libs_angular.md\":\"27534be3\",\"views_article_javascript_libs_async.md\":\"e1e070ee\",\"views_article_javascript_libs_axios.md\":\"02b71e83\",\"views_article_javascript_libs_call-bind.md\":\"03eb53b1\",\"views_article_javascript_libs_copy-code.md\":\"d149959b\",\"views_article_javascript_libs_csrf.md\":\"4d973b0b\",\"views_article_javascript_libs_decorator.md\":\"43422bd4\",\"views_article_javascript_libs_eventloop.md\":\"e29b5ed3\",\"views_article_javascript_libs_foreach.md\":\"a6414d45\",\"views_article_javascript_libs_leetcode-list.md\":\"de87ec2e\",\"views_article_javascript_libs_leetcode-num.md\":\"c5a198d4\",\"views_article_javascript_libs_leetcode-rect.md\":\"63457c03\",\"views_article_javascript_libs_module.md\":\"ed904520\",\"views_article_javascript_libs_object.md\":\"8dd0826a\",\"views_article_javascript_libs_promise.md\":\"f14544ef\",\"views_article_javascript_libs_prototype.md\":\"6ff75294\",\"views_article_javascript_libs_queen.md\":\"ecd861a0\",\"views_article_javascript_libs_response-header.md\":\"c361e35d\",\"views_article_nodejs_index.md\":\"a961e8a6\",\"views_article_nodejs_libs_email.md\":\"3548a659\",\"views_article_nodejs_libs_socket.md\":\"7b74219b\",\"views_article_tool_index.md\":\"0dc7622b\",\"views_article_tool_libs_apiproxy.md\":\"a565196b\",\"views_article_tool_libs_chrome.md\":\"e4fe9463\",\"views_article_tool_libs_clear.md\":\"8dfdb133\",\"views_article_tool_libs_gacm.md\":\"901f7749\",\"views_article_vuejs_index.md\":\"d3cb559b\",\"views_article_vuejs_libs_inject.md\":\"8c183bb7\",\"views_article_vuejs_libs_loadong.md\":\"255257a0\",\"views_article_vuejs_libs_offical.md\":\"4418c7c6\",\"views_article_vuejs_libs_rem.md\":\"77cc44f7\",\"views_article_vuejs_libs_select.md\":\"45392622\",\"views_article_vuejs_libs_slot.md\":\"6c8ca46a\",\"views_article_vuejs_libs_vitepress.md\":\"047730ca\",\"views_article_vuejs_libs_vuehook.md\":\"9fde7643\",\"views_article_index.md\":\"1b6b8a50\",\"views_project_index.md\":\"73874165\"}")</script>
+    <script type="module" async src="/assets/app.d57216e0.js"></script>
+    
+  </body>
+</html>

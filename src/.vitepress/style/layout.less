@@ -1,0 +1,71 @@
+.svg-icon {
+    svg{
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+    &-animation-spin {
+        display: inline-block;
+        animation: loadingCircle 1s infinite linear;
+      }
+}
+
+@keyframes loadingCircle {
+    100% {
+      transform: rotate(360deg);
+    }
+}
+.about{
+  width: 800px;
+  margin: 0 auto;
+  a{
+    color:rgb(19, 150, 232)
+  }
+  .about-logo{
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+  }
+  .about-description {
+    color: #666;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  li:not(:last-child){
+    margin: 8px 0;
+  }
+}
+@media screen and (min-width: 700px) {
+  .about {
+    width: 800px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .about {
+    width: 100%;
+  }
+}
+.article-content{
+  img {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    object-fit: cover;
+  }
+}
+.project-item{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  p{
+    a{
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+  a{
+    margin-right: 10px;
+  }
+}
