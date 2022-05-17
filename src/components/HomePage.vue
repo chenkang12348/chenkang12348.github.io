@@ -2,28 +2,42 @@
   <div class="home-page">
     <HomeNav />
     <div class="home-content">
-      <img class="home-cover" src="/images/cover.jpg" />
       <div class="content-left">
-        <div class="left-title">F小站</div>
-        <div class="left-descript">
-          Do whatever you wanna do, go wherever you wanna go.
+        <div class="left-title">
+          <h1>F{{'</code>'}}</h1>
         </div>
-        <a class="enter-btn" href="/views/about.html">README</a>
+        <p class="left-descript">
+          Do whatever you wanna do, go wherever you wanna go.
+        </p>
+        <div class="left-btn">
+          <a
+            class="btn btn-primary btn-ghost btn-shine"
+            href="/views/about.html"
+            >README</a
+          >
+          <a
+            class="btn btn-primary btn-ghost btn-shine"
+            href="/views/article/index.html"
+            >BLOG</a
+          >
+        </div>
       </div>
     </div>
+    <home-bg />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import HomeBg from './common/HomeBg.vue';
 import HomeNav from './common/HomeNav.vue';
 export default defineComponent({
   name: 'HomePage',
-  components: { HomeNav },
+  components: { HomeNav, HomeBg },
 });
 </script>
+
 <style lang="less" scoped>
 @import url('./../.vitepress/style/var.less');
-
 .home-page {
   position: fixed;
   top: 0;
@@ -32,22 +46,47 @@ export default defineComponent({
   bottom: 0;
   .home-content {
     display: flex;
-    justify-content: space-between;
+    margin: auto;
+    justify-content: center;
     height: 100%;
-    overflow-y: auto;
+    // overflow-y: auto;
     .home-cover {
       object-fit: cover;
     }
     .content-left {
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      // .left-title {
+      //   font-size: 36px;
+      //   font-weight: 600;
+      //   margin-bottom: 10px;
+      // }
       .left-title {
-        font-size: 36px;
-        font-weight: 600;
-        margin-bottom: 10px;
+        display: grid;
+        place-items: center;
+        // height: 100vh;
+        color: white;
+
+        h1 {
+          font-size: 250%;
+          text-shadow: 0 2px 2px black;
+          color: #fff;
+        }
       }
+
       .left-descript {
         font-size: 20px;
         margin-bottom: 30px;
+        color: #fff;
+      }
+      .left-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
       }
       .enter-btn {
         display: block;
@@ -76,7 +115,7 @@ export default defineComponent({
     bottom: 0;
     .home-content {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       width: 100%;
       height: 100%;
       .home-cover {
@@ -85,18 +124,41 @@ export default defineComponent({
         object-fit: cover;
       }
       .content-left {
-        padding: 30px 50px;
-        width: 45%;
+        // padding: 30px 50px;
+        // width: 45%;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        // .left-title {
+        //   font-size: 36px;
+        //   font-weight: 600;
+        //   margin-top: 200px;
+        //   margin-bottom: 10px;
+        // }
         .left-title {
-          font-size: 36px;
-          font-weight: 600;
-          margin-top: 200px;
-          margin-bottom: 10px;
+          display: grid;
+          place-items: center;
+          // height: 100vh;
+          color: white;
+
+          h1 {
+            font-size: 250%;
+            text-shadow: 0 2px 2px black;
+            color: #fff;
+          }
         }
         .left-descript {
           font-size: 20px;
           margin-bottom: 30px;
+          color: #fff;
+        }
+        .left-btn {
+          display: flex;
+          align-items: center;
+          justify-content: space-evenly;
+          width: 100%;
         }
         .enter-btn {
           display: block;
@@ -130,7 +192,111 @@ export default defineComponent({
     }
     .content-left {
       width: 100%;
-      padding: 30px 10px;
+      // padding: 30px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+@import url(https://fonts.googleapis.com/css?family=Lato);
+
+.left-descript {
+  color: #fff;
+  font-size: 2em;
+  font-family: Lato, sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  background-size: 80%;
+  background-repeat: no-repeat;
+  // below two lines create text gradient effect
+  color: transparent;
+  background-clip: text;
+  animation: shining 3s linear infinite;
+}
+
+@keyframes shining {
+  from {
+    background-position: -500%;
+  }
+  to {
+    background-position: 500%;
+  }
+}
+
+.btn {
+  --hue: 190;
+  position: relative;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: hsl(var(--hue), 100%, 41%);
+  border: 1px solid hsl(var(--hue), 100%, 41%);
+  outline: transparent;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: 0.25s;
+
+  &:hover {
+    background: hsl(var(--hue), 100%, 31%);
+  }
+
+  &-primary {
+    --hue: 187;
+  }
+
+  &-ghost {
+    color: hsl(var(--hue), 100%, 41%);
+    background-color: transparent;
+    border-color: hsl(var(--hue), 100%, 41%);
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  &-shine {
+    color: white;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent,
+        hsla(var(--hue), 100%, 41%, 0.5),
+        transparent
+      );
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
+
+    &:hover {
+      background: transparent;
+      box-shadow: 0 0 20px 10px hsla(var(--hue), 100%, 41%, 0.5);
+    }
+
+    &:hover::before {
+      transform: translateX(100%);
     }
   }
 }

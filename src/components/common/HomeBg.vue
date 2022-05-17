@@ -1,0 +1,97 @@
+<template>
+  <ul class="ken-burns-slideshow">
+    <li class="slide" id="slide1"></li>
+    <li class="slide" id="slide2"></li>
+    <li class="slide" id="slide3"></li>
+    <li class="slide" id="slide4"></li>
+  </ul>
+</template>
+<script lang="ts"></script>
+<style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700');
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+.ken-burns-slideshow {
+  $total-slides: 4;
+  $interval: 6s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  list-style-type: none;
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1.2);
+    animation: kenburns $total-slides * $interval linear infinite;
+
+    @for $i from 1 through $total-slides {
+      &:nth-child(#{$i}) {
+        animation-delay: $interval * ($i - 1);
+      }
+    }
+  }
+}
+
+#slide1 {
+  background-image: linear-gradient(
+      rgba(16, 16, 16, 0.8),
+      rgba(16, 16, 16, 0.8)
+    ),
+    url('https://images.unsplash.com/photo-1578879279270-f1a166ab29f8?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ');
+}
+
+#slide2 {
+  background-image: linear-gradient(
+      rgba(16, 16, 16, 0.8),
+      rgba(16, 16, 16, 0.8)
+    ),
+    url('https://images.unsplash.com/photo-1470219556762-1771e7f9427d?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ');
+}
+#slide3 {
+  background-image: linear-gradient(
+      rgba(16, 16, 16, 0.8),
+      rgba(16, 16, 16, 0.8)
+    ),
+    url('https://images.unsplash.com/photo-1435575653489-b0873ec954e2?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ');
+}
+#slide4 {
+  background-image: linear-gradient(
+      rgba(16, 16, 16, 0.8),
+      rgba(16, 16, 16, 0.8)
+    ),
+    url('https://images.unsplash.com/photo-1462396240927-52058a6a84ec?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ');
+}
+
+@keyframes kenburns {
+  10% {
+    opacity: 1;
+  }
+
+  25% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  40% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+</style>

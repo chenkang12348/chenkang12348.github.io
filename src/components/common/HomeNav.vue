@@ -36,10 +36,10 @@ export default defineComponent({
     });
 
     const btnColor = computed(() => {
-      return isHero.value ? '#fff' : '#333';
+      return isHero.value ? '#fff' : '#bbb';
     });
     const activeColor = computed(() => {
-      return isHero.value ? '#333' : '#7dd1d3';
+      return isHero.value ? '#bbb' : '#008c8c';
     });
     const links = [
       {
@@ -85,6 +85,7 @@ export default defineComponent({
   justify-content: flex-end;
   box-sizing: border-box;
   z-index: 99;
+  background-color: #fff;
   .home-operate {
     display: flex;
     align-items: center;
