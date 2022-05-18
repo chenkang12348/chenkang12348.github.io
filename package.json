@@ -9,7 +9,7 @@
     "generate": "sucrase-node script/generate.ts",
     "serve": "vitepress serve  src --port 8080",
     "changelog": "conventional-changelog -p custom-config  -i CHANGELOG.md  -s -r 0 -n ./changelog.config.js",
-    "deploy": "deploy.sh"
+    "deploy": "npm run build && deploy.sh"
   },
   "keywords": [
     "blog"

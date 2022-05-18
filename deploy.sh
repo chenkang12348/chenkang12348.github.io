@@ -4,16 +4,6 @@
 set -e
 # 提交代码
 git add .
-git commit -m 'add'
-
-# 更新本地文件
-git pull 
-git push 
-# 打包
-npm run build
-
-# 更新本地
-git add .
 git commit -m 'deploy'
 
 # 提交代码
