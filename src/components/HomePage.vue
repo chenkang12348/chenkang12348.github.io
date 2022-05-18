@@ -17,7 +17,7 @@
           >
           <a
             class="btn btn-primary btn-ghost btn-shine"
-            href="/views/article/index.html"
+            href="/views/article/Javascript/index.html"
             >BLOG</a
           >
         </div>
