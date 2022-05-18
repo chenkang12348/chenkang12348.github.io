@@ -80,7 +80,7 @@ export default defineComponent({
       .left-descript {
         font-size: 20px;
         margin-bottom: 30px;
-        color: #fff;
+        color: #000;
       }
       .left-btn {
         display: flex;
@@ -149,10 +149,20 @@ export default defineComponent({
             color: #fff;
           }
         }
+        .left-title{
+            text-align: center;
+            // background-color: #000;
+            filter: contrast(30);
+            h1{
+              font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+              letter-spacing: -40px;
+              animation: move-letter 4s linear forwards; 
+              }
+        }
         .left-descript {
           font-size: 20px;
           margin-bottom: 30px;
-          color: #fff;
+          color: #000;
         }
         .left-btn {
           display: flex;
@@ -200,29 +210,51 @@ export default defineComponent({
     }
   }
 }
+@keyframes move-letter{
+  0% {
+    opacity: 0;
+    letter-spacing: -40px;
+    filter: blur(10px);
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    filter: blur(5px);
+  }
+  100% {
+    letter-spacing: 2px;
+    filter: blur(0px);
+  }
+}
+
+
 </style>
 
 <style lang="scss" scoped>
 @import url(https://fonts.googleapis.com/css?family=Lato);
 
 .left-descript {
-  color: #fff;
+  color: #000;
   font-size: 2em;
+  padding:20px;
   font-family: Lato, sans-serif;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   background: linear-gradient(
     90deg,
-    rgba(0, 0, 0, 0) 30%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(0, 0, 0, 0) 70%
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(255, 255, 255, 1) 50%,
+    rgba(0, 0, 0, 0.3) 100%
   );
   background-size: 80%;
   background-repeat: no-repeat;
   // below two lines create text gradient effect
   color: transparent;
   background-clip: text;
-  animation: shining 3s linear infinite;
+  animation: shining 3s linear forwards;
+  filter: drop-shadow(2px 4px 6px black);
+  opacity: 0.3;
 }
 
 @keyframes shining {

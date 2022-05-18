@@ -52,11 +52,11 @@ export default defineComponent({
         key: 'blog',
         url: '/views/article/index.html',
       },
-      {
-        title: 'Project',
-        key: 'project',
-        url: '/views/project/index.html',
-      },
+      // {
+      //   title: 'Project',
+      //   key: 'project',
+      //   url: '/views/project/index.html',
+      // },
       {
         title: 'About',
         key: 'about',

@@ -1,11 +1,11 @@
 ---
-title: 前端校招面试题
+title: 前端面试题
 theme: default
 tag: InformalEssay
 time: 2020.12.6
 ---
 
-## 前端校招面试题
+## 前端面试题
 
 ### TCP 拥塞控制
 

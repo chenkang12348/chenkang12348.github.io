@@ -13,7 +13,7 @@
     <Content />
     <div v-if="!catalogue" class="copy-right">
       本文首发于
-      <a href="https://chenkang12348.github.io/">@F小站</a>，转载请署名出处
+      <a href="https://chenkang12348.github.io/">@F-笔记</a>，转载请署名出处
     </div>
   </div>
 </template>
@@ -75,6 +75,7 @@ export default defineComponent({
     background-color: #fff;
     z-index: 9;
     .tag-item {
+      padding: 5px;
       font-size: 24px;
       color: #999;
       cursor: pointer;
@@ -86,6 +87,7 @@ export default defineComponent({
     }
     .tag-active {
       color: #333;
+      border-bottom: 2px solid #333;
     }
   }
   .copy-right {
