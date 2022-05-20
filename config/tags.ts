@@ -1,8 +1,8 @@
 export const tags = [
   'All',
-  'Vuejs',
   'Javascript',
+  'Vue',
+  'React',
   'Nodejs',
-  'Tool',
   'InformalEssay',
 ];

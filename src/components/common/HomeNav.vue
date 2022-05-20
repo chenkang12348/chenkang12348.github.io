@@ -50,7 +50,7 @@ export default defineComponent({
       {
         title: 'Blog',
         key: 'blog',
-        url: '/views/article/index.html',
+        url: '/views/article/Javascript/index.html',
       },
       // {
       //   title: 'Project',

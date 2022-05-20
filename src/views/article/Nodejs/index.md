@@ -5,4 +5,4 @@ catalogue: true
 tag: 'Nodejs'
 ---
 
-- [node发送邮件](./libs/email) <Tag>2020.9.26</Tag> 
+- [node发送邮件](./libs/20200926) <Tag>2020.09.26</Tag>

@@ -238,23 +238,23 @@ export default defineComponent({
   color: #000;
   font-size: 2em;
   padding:20px;
-  font-family: Lato, sans-serif;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.3) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-  background-size: 80%;
-  background-repeat: no-repeat;
+  // font-family: Lato, sans-serif;
+  // letter-spacing: 2px;
+  // text-transform: uppercase;
+  // background: linear-gradient(
+  //   90deg,
+  //   rgba(0, 0, 0, 0.3) 0%,
+  //   rgba(255, 255, 255, 1) 50%,
+  //   rgba(0, 0, 0, 0.3) 100%
+  // );
+  // background-size: 80%;
+  // background-repeat: no-repeat;
   // below two lines create text gradient effect
   color: transparent;
   background-clip: text;
-  animation: shining 3s linear forwards;
+  // animation: shining 3s linear forwards;
   filter: drop-shadow(2px 4px 6px black);
-  opacity: 0.3;
+  // opacity: 0.3;
 }
 
 @keyframes shining {
