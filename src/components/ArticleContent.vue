@@ -77,7 +77,7 @@ export default defineComponent({
     height: calc(100% - 130px);
   }
   .article-nav-tag {
-    position: sticky;
+    // position: sticky;
     top: 50px;
     display: flex;
     align-items: center;

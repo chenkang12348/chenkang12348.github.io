@@ -133,6 +133,7 @@ export default defineComponent({
       }
       .active {
         color: v-bind(activeColor);
+        color: @theme-color;
       }
     }
   }

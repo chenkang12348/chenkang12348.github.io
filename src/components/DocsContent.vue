@@ -50,11 +50,12 @@ export default defineComponent({
   filter: drop-shadow(2px 4px 6px black);
   margin-top: 80px;
   box-sizing: border-box;
+  overflow: auto;
 }
 @media screen and (min-width: 800px) {
   .docs-bodyer {
     width: 80%;
-    margin: 80px 200px 50px;
+    margin: 80px 100px 50px;
   }
 }
 @media screen and (max-width: 800px) {

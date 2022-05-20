@@ -9,6 +9,8 @@ active: 'about'
 
 ## F
 
+<div class='about-content'>
+
 <p class='about-description'>做想做的事，去想去的地方。</p>
 
 <p>Hi 👋，我是<strong>F</strong></p>
@@ -30,5 +32,5 @@ active: 'about'
 - Email: 2539089220@qq.com
 
 <!-- - Github: [chenkang12348](https://github.com/chenkang12348) -->
-
+</div>
 </div>
