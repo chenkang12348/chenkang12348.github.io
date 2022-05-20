@@ -10,7 +10,9 @@
         {{ tag.name }}
       </a>
     </div>
-    <Content />
+    <div class="content">
+      <Content />
+    </div>
     <div v-if="!catalogue" class="copy-right">
       本文首发于
       <a href="https://chenkang12348.github.io/">@F-笔记</a>，转载请署名出处
@@ -22,6 +24,7 @@ import { computed, defineComponent } from 'vue';
 import { useData } from 'vitepress';
 export default defineComponent({
   name: 'ArticleContent',
+
   setup() {
     const { frontmatter } = useData();
     const tags = [
@@ -67,12 +70,19 @@ export default defineComponent({
 </script>
 <style lang="less" scoped>
 .article-content {
+  width: 100%;
+  height: 100%;
+  .content {
+    overflow: auto;
+    height: calc(100% - 130px);
+  }
   .article-nav-tag {
     position: sticky;
     top: 50px;
     display: flex;
     align-items: center;
-    background-color: #fff;
+    // background-color: #fff;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.8));
     z-index: 9;
     .tag-item {
       padding: 5px;

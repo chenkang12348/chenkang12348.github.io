@@ -1,7 +1,9 @@
 <template>
   <div
     class="home-nav"
-    :style="{ 'background-color': isHero ? 'transparent' : '#fff' }"
+    :style="{
+      'background-color': 'rgba(255,255,255,0.3)',
+    }"
   >
     <div class="home-operate">
       <a
