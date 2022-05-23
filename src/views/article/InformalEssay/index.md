@@ -5,6 +5,8 @@ catalogue: true
 tag: 'InformalEssay'
 ---
 
+- [GitHub推送失败](./libs/20210601) <Tag>2021.06.01</Tag>
+
 - [ElementUI 问题清单总结](./libs/20210507) <Tag>2021.05.07</Tag>
 
 - [多个 VSCode 插件，打造最强编辑器](./libs/20210501) <Tag>2021.05.01</Tag>

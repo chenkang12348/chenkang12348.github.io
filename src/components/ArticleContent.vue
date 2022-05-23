@@ -14,8 +14,11 @@
       <Content />
     </div>
     <div v-if="!catalogue" class="copy-right">
-      本文首发于
-      <a href="https://chenkang12348.github.io/">@F-笔记</a>，转载请署名出处
+      {{'<code\
+        >'}}
+        <a href="https://chenkang12348.github.io/">@F-笔记</a>
+        {{'</code\
+      >'}}
     </div>
   </div>
 </template>
