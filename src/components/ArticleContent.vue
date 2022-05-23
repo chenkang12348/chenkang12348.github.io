@@ -16,7 +16,7 @@
     <div v-if="!catalogue" class="copy-right">
       {{'<code\
         >'}}
-        <a href="https://chenkang12348.github.io/">@F-笔记</a>
+        <a href="/views/about.html">@F-笔记</a>
         {{'</code\
       >'}}
     </div>
