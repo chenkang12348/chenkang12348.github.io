@@ -2,7 +2,7 @@
   <div
     class="home-nav"
     :style="{
-      'background-color': 'rgba(255,255,255,0.3)',
+      'background-color': 'rgba(255,255,255,0.1)',
     }"
   >
     <div class="home-operate">
@@ -76,6 +76,9 @@ export default defineComponent({
 });
 </script>
 <style lang="less" scoped>
+a {
+  color: #fff;
+}
 @import url('../../.vitepress/style/var.less');
 .home-nav {
   position: fixed;

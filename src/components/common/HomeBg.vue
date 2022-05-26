@@ -17,7 +17,7 @@ li {
 
 .ken-burns-slideshow {
   $total-slides: 4;
-  $interval: 6s;
+  $interval: 2.5s;
   position: absolute;
   top: 0;
   left: 0;
@@ -84,8 +84,8 @@ li {
     opacity: 1;
   }
 
-  25% {
-    opacity: 1;
+  30% {
+    opacity: 0.8;
     transform: scale(1);
   }
 
