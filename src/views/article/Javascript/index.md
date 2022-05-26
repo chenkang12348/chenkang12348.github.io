@@ -5,6 +5,7 @@ catalogue: true
 tag: 'Javascript'
 ---
 
+- [x !== x](./libs/20210401) <Tag>2021.04.01</Tag>
 
 - [少见却有用的js技巧](./libs/20210321) <Tag>2021.03.21</Tag>
 
