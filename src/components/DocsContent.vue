@@ -60,6 +60,7 @@ export default defineComponent({
 }
 @media screen and (max-width: 800px) {
   .docs-bodyer {
+    padding: 0px;
     margin: 0px;
     margin-top: 50px;
     width: 100%;
