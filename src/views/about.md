@@ -7,7 +7,7 @@ active: 'about'
 
 <img class='about-logo' src='/images/user.jpg'>
 
-## F <code>console.log('Hello World')</code>
+## ***F~~~***
 
 <div class='about-content'>
 

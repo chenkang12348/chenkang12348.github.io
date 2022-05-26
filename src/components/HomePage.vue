@@ -4,7 +4,7 @@
     <div class="home-content">
       <div class="content-left">
         <div class="left-title">
-          <h1>F{{'</code>'}}</h1>
+          <h1>{{'<code> F </code>'}}</h1>
         </div>
         <p class="left-descript">
           Do whatever you wanna do, go wherever you wanna go.
@@ -149,15 +149,15 @@ export default defineComponent({
             color: #fff;
           }
         }
-        .left-title{
-            text-align: center;
-            // background-color: #000;
-            filter: contrast(30);
-            h1{
-              font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
-              letter-spacing: -40px;
-              animation: move-letter 4s linear forwards; 
-              }
+        .left-title {
+          text-align: center;
+          // background-color: #000;
+          filter: contrast(30);
+          h1 {
+            font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+            letter-spacing: -40px;
+            animation: move-letter 4s linear forwards;
+          }
         }
         .left-descript {
           font-size: 20px;
@@ -210,7 +210,7 @@ export default defineComponent({
     }
   }
 }
-@keyframes move-letter{
+@keyframes move-letter {
   0% {
     opacity: 0;
     letter-spacing: -40px;
@@ -227,8 +227,6 @@ export default defineComponent({
     filter: blur(0px);
   }
 }
-
-
 </style>
 
 <style lang="scss" scoped>
@@ -237,7 +235,7 @@ export default defineComponent({
 .left-descript {
   color: #000;
   font-size: 2em;
-  padding:20px;
+  padding: 20px;
   // font-family: Lato, sans-serif;
   // letter-spacing: 2px;
   // text-transform: uppercase;
