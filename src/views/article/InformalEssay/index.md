@@ -4,6 +4,8 @@ active: 'blog'
 catalogue: true
 tag: 'InformalEssay'
 ---
+- [可视化图表](./libs/20210730) <Tag>2021.07.30</Tag>
+
 - [HTML冷门实用标签](./libs/20210701) <Tag>2021.07.01</Tag>
 
 - [CSS函数](./libs/20210625) <Tag>2021.06.25</Tag>

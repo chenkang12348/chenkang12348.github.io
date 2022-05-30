@@ -5,6 +5,8 @@ catalogue: true
 tag: 'Javascript'
 ---
 
+- [reduce`()`](./libs/20211110) <Tag>2021.11.10</Tag>
+
 - [1024](./libs/20211024) <Tag>2021.10.24</Tag>
 
 - [初始值填充数组](./libs/20210801) <Tag>2021.08.01</Tag>
