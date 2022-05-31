@@ -5,6 +5,7 @@ catalogue: true
 tag: 'Vue'
 ---
 
+- [常用Vue自定义指令](./libs/20211201) <Tag>2021.12.01</Tag>
 
 - [Vue 插件](./libs/20211124) <Tag>2021.11.24</Tag>
 

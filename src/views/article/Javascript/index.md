@@ -5,6 +5,11 @@ catalogue: true
 tag: 'Javascript'
 ---
 
+
+- [Promise复习题](./libs/20211118) <Tag>2021.11.18</Tag>
+
+- [ES6+集合](./libs/20211112) <Tag>2021.11.12</Tag>
+
 - [reduce`()`](./libs/20211110) <Tag>2021.11.10</Tag>
 
 - [1024](./libs/20211024) <Tag>2021.10.24</Tag>
