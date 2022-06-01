@@ -4,6 +4,7 @@ active: 'blog'
 catalogue: true
 tag: 'Vue'
 ---
+- [Axios灵活复用](./libs/20211205) <Tag>2021.12.05</Tag>
 
 - [常用Vue自定义指令](./libs/20211201) <Tag>2021.12.01</Tag>
 
