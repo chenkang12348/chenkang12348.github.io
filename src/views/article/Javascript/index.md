@@ -6,6 +6,8 @@ tag: 'Javascript'
 ---
 
 
+- [巧用Math](./libs/20211119) <Tag>2021.11.19</Tag>
+
 - [Promise复习题](./libs/20211118) <Tag>2021.11.18</Tag>
 
 - [ES6+集合](./libs/20211112) <Tag>2021.11.12</Tag>
