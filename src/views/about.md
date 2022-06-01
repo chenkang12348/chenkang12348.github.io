@@ -31,6 +31,5 @@ active: 'about'
 
 - Email: 2539089220@qq.com
 
-<!-- - Github: [chenkang12348](https://github.com/chenkang12348) -->
 </div>
 </div>
