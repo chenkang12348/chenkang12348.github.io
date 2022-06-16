@@ -4,6 +4,8 @@ active: 'blog'
 catalogue: true
 tag: 'Vue'
 ---
+- [VUE3踩坑指南](./libs/20220203) <Tag>2022.02.03</Tag>
+
 - [Axios灵活复用](./libs/20211205) <Tag>2021.12.05</Tag>
 
 - [常用Vue自定义指令](./libs/20211201) <Tag>2021.12.01</Tag>
