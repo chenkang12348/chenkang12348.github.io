@@ -1,10 +1,10 @@
 ---
-title: 'Javascript'
+title: 'ES/TS'
 active: 'blog'
 catalogue: true
-tag: 'Javascript'
+tag: 'ES/TS'
 ---
-
+- [【TS】typeof操作符](./libs/20220106) <Tag>2022.01.06</Tag>
 
 - [巧用Math](./libs/20211119) <Tag>2021.11.19</Tag>
 

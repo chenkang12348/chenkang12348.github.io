@@ -57,7 +57,7 @@ export default defineComponent({
       //   url: '/views/article/index.html',
       // },
       {
-        name: 'Javascript',
+        name: 'ES/TS',
         url: '/views/article/Javascript/index.html',
       },
       {
